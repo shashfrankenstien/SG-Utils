@@ -24,14 +24,15 @@ def db_connect(f, db=None):
 
 
 class storeBase(object):
-    def __init__(self, filepath):
+    def __init__(self, filepath, writer=True):
         self.db_name = filepath
         self.conn, self.cursor = None, None
-        self.connect()
-        self.conn.execute('''PRAGMA journal_mode=WAL;''')
-        # Initial connect process
-        self.create()
-        self.close()
+        if writer:
+            self.connect()
+            self.conn.execute('''PRAGMA journal_mode=WAL;''')
+            # Initial connect process
+            self.create()
+            self.close()
 
     def connect(self):
         self.conn = sqlite3.connect(self.db_name)
@@ -50,6 +51,13 @@ class storeBase(object):
 
     def create(self, *args, **kwargs):
         raise StoreBaseClassError('Subclass StoreBase and implement create() method')
+
+    def checkForTables(self, tables):
+        for name in tables:
+            tableExists = self.cursor.execute("SELECT count(*) as c FROM sqlite_master WHERE type='table' AND name=?;", (name, )).fetchone()
+            if not tableExists['c']:
+                return False
+        return True
 
 
 class StoreBaseClassError(Exception):

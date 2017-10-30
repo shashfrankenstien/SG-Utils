@@ -29,9 +29,9 @@ class storeBase(object):
         self.conn, self.cursor = None, None
         self.connect()
         self.conn.execute('''PRAGMA journal_mode=WAL;''')
-        self.close()
         # Initial connect process
         self.create()
+        self.close()
 
     def connect(self):
         self.conn = sqlite3.connect(self.db_name)

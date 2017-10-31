@@ -52,6 +52,7 @@ class storeBase(object):
     def create(self, *args, **kwargs):
         raise StoreBaseClassError('Subclass StoreBase and implement create() method')
 
+    @db_connect
     def checkForTables(self, tables):
         for name in tables:
             tableExists = self.cursor.execute("SELECT count(*) as c FROM sqlite_master WHERE type='table' AND name=?;", (name, )).fetchone()

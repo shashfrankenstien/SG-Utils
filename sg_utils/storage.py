@@ -29,7 +29,7 @@ class storeBase(object):
         self.conn, self.cursor = None, None
         if writer:
             self.connect()
-            self.conn.execute('''PRAGMA journal_mode=WAL;''')
+            self.cursor.execute('''PRAGMA journal_mode=WAL;''')
             # Initial connect process
             self.create()
             self.close()

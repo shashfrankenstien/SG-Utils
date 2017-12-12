@@ -28,12 +28,13 @@ class storeBase(object):
         self.db_name = filepath
         self.conn, self.cursor = None, None
         if writer:
-            self.cursor.execute('''PRAGMA journal_mode=WAL;''')
+            
             self.connect()
             # self.cursor.execute('''PRAGMA journal_mode=WAL;''')
             # Initial connect process
             self.create()
             self.close()
+            self.cursor.execute('''PRAGMA journal_mode=WAL;''')
 
     def connect(self):
         self.conn = sqlite3.connect(self.db_name)

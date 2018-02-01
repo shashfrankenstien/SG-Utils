@@ -28,9 +28,16 @@ class storeBase(object):
         self.db_name = filepath
         self.conn, self.cursor = None, None
         if writer:
-            self.connect()
-            self.conn.execute('''PRAGMA journal_mode=WAL;''')
+            
+            try:
+                self.connect()
+                self.cursor.execute('''PRAGMA journal_mode=WAL;''')
+                self.close()
+            except:
+                pass
+            
             # Initial connect process
+            self.connect()
             self.create()
             self.close()
 

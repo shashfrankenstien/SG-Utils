@@ -2,6 +2,9 @@ from flask import request
 import time, sys, os
 import traceback
 
+def print_error(e):
+	print((e, sys.exc_info()[0].__name__, os.path.basename(sys.exc_info()[2].tb_frame.f_code.co_filename), sys.exc_info()[2].tb_lineno))
+	print(str(traceback.format_exc().splitlines()))
 
 class Logger(object):
 	"""docstring for Logger"""

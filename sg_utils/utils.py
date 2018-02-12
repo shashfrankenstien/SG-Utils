@@ -7,7 +7,7 @@ class dotdict(dict):
 	__setattr__ = dict.__setitem__
 	__delattr__ = dict.__delitem__
 	
-	def __getstate__():
+	def __getstate__(self):
 		raise AttributeError
 
 

@@ -2,9 +2,13 @@ import string, random, sys
 
 class dotdict(dict):
 	"""dot.notation access to dictionary attributes"""
+	
 	__getattr__ = dict.get
 	__setattr__ = dict.__setitem__
 	__delattr__ = dict.__delitem__
+	
+	def __getstate__():
+		raise AttributeError
 
 
 def iterdict(d):

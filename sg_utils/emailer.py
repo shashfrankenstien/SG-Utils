@@ -50,13 +50,7 @@ class Mail(object):
 			self.server.starttls()
 			self.server.login(self.username,self.password)
 			print('logged in ')
-			if isinstance(msg.recipient, str):
-				self.server.sendmail(msg.sender, msg.recipient, str(msg.message))
-			elif isinstance(msg.recipient, list):
-				for rec in msg.recipient:
-					self.server.sendmail(msg.sender, rec, str(msg.message))
-			else:
-				print('No recipient')
+			self.server.sendmail(msg.sender, msg.recipient, str(msg.message))
 			print('sent')
 			self.server.close()
 			print('closed')

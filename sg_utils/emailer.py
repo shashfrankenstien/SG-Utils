@@ -11,7 +11,7 @@ class Message(object):
 		self.message = MIMEMultipart()
 		self.sender = sender
 		if isinstance(recipient, list):
-			recepient = ", ".join(recepient)
+			recepient = ", ".join(recipient)
 		self.recipient = recipient
 		self.setHeader('From', sender)
 		self.setHeader('To', recipient)

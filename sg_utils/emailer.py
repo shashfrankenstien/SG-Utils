@@ -10,8 +10,6 @@ class Message(object):
 		print recipient, sender, subject, body
 		self.message = MIMEMultipart()
 		self.sender = sender
-		if isinstance(recipient, list):
-			recipient = ", ".join(recipient)
 		self.recipient = recipient
 		self.setHeader('From', sender)
 		self.setHeader('To', recipient)
@@ -52,7 +50,13 @@ class Mail(object):
 			self.server.starttls()
 			self.server.login(self.username,self.password)
 			print('logged in ')
-			self.server.sendmail(msg.sender, msg.recipient, str(msg.message))
+			if isinstance(msg.recipient, str):
+				self.server.sendmail(msg.sender, msg.recipient, str(msg.message))
+			elif isinstance(msg.recipient, list):
+				for rec in msg.recipient:
+					self.server.sendmail(msg.sender, rec, str(msg.message))
+			else:
+				print('No recipient')
 			print('sent')
 			self.server.close()
 			print('closed')

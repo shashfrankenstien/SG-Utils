@@ -7,7 +7,6 @@ from email.mime.application import MIMEApplication
 class Message(object):
 	'''Takes recipient, sender, subject and body to initiate'''
 	def __init__(self, recipient='', sender='', subject='', body=''):
-		print recipient, sender, subject, body
 		self.message = MIMEMultipart()
 		self.sender = sender
 		self.recipient = recipient

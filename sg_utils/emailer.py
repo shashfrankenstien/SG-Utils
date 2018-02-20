@@ -10,8 +10,6 @@ class Message(object):
 		print recipient, sender, subject, body
 		self.message = MIMEMultipart()
 		self.sender = sender
-		if isinstance(recipient, list):
-			recepient = ", ".join(recipient)
 		self.recipient = recipient
 		self.setHeader('From', sender)
 		self.setHeader('To', recipient)

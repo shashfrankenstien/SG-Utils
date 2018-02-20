@@ -49,11 +49,11 @@ class Mail(object):
 			self.server.ehlo()
 			self.server.starttls()
 			self.server.login(self.username,self.password)
-			print('logged in ')
+			print('Emailer - logged in ')
 			self.server.sendmail(msg.sender, msg.recipient, str(msg.message))
-			print('sent')
-			self.server.close()
-			print('closed')
+			print('Emailer - sent')
+			self.server.quit()
+			print('Emailer - closed')
 		except Exception, e: 
 			print '\n\n',str(e), '\n\n'
 		Mail._count += 1

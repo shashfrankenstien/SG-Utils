@@ -36,12 +36,12 @@ class Mail(object):
 	"""
 	_count = 0
 
-	def __init__(self, username, password, mail_server_port):
+	def __init__(self, username, password, mail_server_port, debug=False):
 		self.username = username
 		self.password = password
 		self.host_port = mail_server_port
 		self.server = smtplib.SMTP()
-		self.server.set_debuglevel(1)
+		self.server.set_debuglevel(debug)
 
 	def send(self, msg):
 		try:
@@ -57,4 +57,5 @@ class Mail(object):
 		except Exception, e: 
 			print '\n\n',str(e), '\n\n'
 		Mail._count += 1
+
 

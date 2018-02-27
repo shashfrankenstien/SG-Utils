@@ -21,5 +21,6 @@ def iterdict(d):
 
 def giberish(size=64):
 	"""Generates salt for password encryption"""
-	alph = str(string.lowercase+string.digits)*2
-	return str(''.join(random.sample(alph, size)))
+	alph = string.lowercase+string.digits
+	return ''.join([random.SystemRandom().choice(alph) for _ in range(size)])
+	# return str(''.join(random.sample(alph, size)))

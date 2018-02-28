@@ -11,7 +11,7 @@ class Job(object):
 		'day': lambda d : True,
 		'weekday': lambda d : d.isoweekday() < 6,
 		'weekend': lambda d : d.isoweekday() > 5,
-		'businessday': lambda d : d not in USHolidays,
+		'businessday': lambda d : d not in USHolidays and d.isoweekday() < 6,
 		'holiday': lambda d : d in USHolidays or d.isoweekday() > 5
 	}
 

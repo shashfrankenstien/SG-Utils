@@ -3,7 +3,6 @@ from .utils import dotdict
 import os
 
 
-
 def dict_factory(cursor, row):
     d = dotdict()
     for idx, col in enumerate(cursor.description):
@@ -72,4 +71,4 @@ class StoreBaseClassError(Exception):
     pass
 
 if __name__ == '__main__':
-    s = sqliteBase('./test.db')
+    s = storeBase('./test.db')

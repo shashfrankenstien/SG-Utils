@@ -50,18 +50,19 @@ class Job(object):
 	def run(self):
 		try:
 			print("========== Scheduler Start =========")
-			print(self)
+			print("Executing {}".format(self))
 			return self.func(**self.kwargs)
 		except Exception as e:
 			print(e)
 		finally:
-			print("Finished execution of {}".format(self))
+			
 			self.schedule_next_run(just_ran=True)
+			print(self)
 			print("========== Scheduler End =========")
 
 
 	def __repr__(self):
-		return "{}. Scheduled = {}".format(self.func, str(dt.fromtimestamp(self.timestamp)))
+		return "Job {}. Next run = {}".format(self.func, str(dt.fromtimestamp(self.timestamp)))
 
 
 

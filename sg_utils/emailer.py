@@ -54,7 +54,7 @@ class Mail(object):
 			self.server.quit()
 			print('Emailer - closed')
 		except Exception as e: 
-			print '\n\n',str(e), '\n\n'
+			print ('\n\n' + str(e) + '\n\n')
 		Mail._count += 1
 
 

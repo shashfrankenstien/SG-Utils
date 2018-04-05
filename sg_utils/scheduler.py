@@ -31,7 +31,7 @@ class Job(object):
 		n = dt.now()
 		n = dt(n.year, n.month, n.day, int(h), int(m), 0)
 		ts = self.to_timestamp(n)
-		if self.job_must_run_today() and time.time() < ts+500 and not just_ran: 
+		if self.job_must_run_today() and time.time() < ts+300 and not just_ran: 
 			self.timestamp = ts
 		else:
 			next_day = n + timedelta(days=1)

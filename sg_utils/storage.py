@@ -14,9 +14,14 @@ def db_connect(f, db=None):
     def wrapper(self, *args, **kwargs):
         if self.conn==None:
             self.connect()
-            f_res = f(self, *args, **kwargs)
-            self.close()
-            return f_res
+            try:
+                f_res = f(self, *args, **kwargs)
+                return f_res
+            except:
+                raise
+            finally:
+                if self.conn!=None:
+                    self.close()
         else:
             return f(self, *args, **kwargs)
     return wrapper

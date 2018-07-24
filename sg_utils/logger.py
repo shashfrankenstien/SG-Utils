@@ -1,6 +1,8 @@
 from flask import request
 import time, sys, os
 import traceback
+from itertools import takewhile, repeat
+
 
 def print_error(e):
 	print((e, sys.exc_info()[0].__name__, os.path.basename(sys.exc_info()[2].tb_frame.f_code.co_filename), sys.exc_info()[2].tb_lineno))
@@ -9,8 +11,23 @@ def print_error(e):
 class Logger(object):
 	"""docstring for Logger"""
 
-	def __init__(self, file_name):
+	def __init__(self, file_name, limit=10000):
 		self.file_name = file_name
+		self.limit = limit
+		self.lc = self._linecount()
+
+	def _linecount(self):
+		if not os.path.isfile(self.file_name): return 0
+		with open(self.file_name, 'rb') as f:
+			bufgen = takewhile(lambda x: x, (f.read(1024*1024) for _ in repeat(None)))
+			return sum( buf.count(b'\n') for buf in bufgen )
+
+	def _truncate(self):
+		bak = self.file_name+'.bak'
+		os.system('head -n {count} {f} > {bak}; mv {bak} {f}'.format(count=self.limit, f=self.file_name, bak=bak))
+		self.lc = self.limit
+
+
 		
 	def log(self, message, _print=True):
 		mess = '[ {} ] - {}'.format(str(time.ctime(time.time())), str(message))
@@ -18,6 +35,10 @@ class Logger(object):
 			log_file.write(mess+'\n')
 		if _print:
 			print(mess)
+		self.lc += 1
+		if self.lc%100==0 and self.lc>self.limit:
+			self._truncate()
+
 
 	def error(self, e):
 		self.log((e, sys.exc_info()[0].__name__, os.path.basename(sys.exc_info()[2].tb_frame.f_code.co_filename), sys.exc_info()[2].tb_lineno))

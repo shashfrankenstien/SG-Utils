@@ -1,5 +1,4 @@
 from distutils.core import setup
-
 setup(
     name='sg_utils',
     version='0.1.0',

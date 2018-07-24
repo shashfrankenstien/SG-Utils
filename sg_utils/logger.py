@@ -11,7 +11,7 @@ def print_error(e):
 class Logger(object):
 	"""docstring for Logger"""
 
-	def __init__(self, file_name, limit=10000):
+	def __init__(self, file_name, limit=100000):
 		self.file_name = file_name
 		self.limit = limit
 		self.lc = self._linecount()

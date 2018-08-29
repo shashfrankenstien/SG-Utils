@@ -5,8 +5,23 @@ from itertools import takewhile, repeat
 
 
 def print_error(e):
-	print((e, sys.exc_info()[0].__name__, os.path.basename(sys.exc_info()[2].tb_frame.f_code.co_filename), sys.exc_info()[2].tb_lineno))
-	print(str(traceback.format_exc().splitlines()))
+	errors = [
+		('Name', sys.exc_info()[0].__name__),
+		('Desc', e),
+		('File', os.path.basename(sys.exc_info()[2].tb_frame.f_code.co_filename)),
+		('Line', sys.exc_info()[2].tb_lineno)
+	]
+	print("-----------==Error==-----------")
+	for label, desc in errors:
+		print('{}: {}'.format(label, desc))
+
+	print("-------------------------------")
+	for tb in traceback.format_exc().splitlines():
+		for each in tb.strip().split(','):
+			if each.startswith("File") or each.startswith("Type"):
+				print("-------------------------------")
+			print(each.strip())
+
 
 class Logger(object):
 	"""docstring for Logger"""
@@ -41,7 +56,8 @@ class Logger(object):
 
 
 	def error(self, e):
-		self.log((e, sys.exc_info()[0].__name__, os.path.basename(sys.exc_info()[2].tb_frame.f_code.co_filename), sys.exc_info()[2].tb_lineno))
+		# self.log((e, sys.exc_info()[0].__name__, os.path.basename(sys.exc_info()[2].tb_frame.f_code.co_filename), sys.exc_info()[2].tb_lineno))
+		print_error(e)
 
 	def traceback(self, e):
 		self.log(str(traceback.format_exc().splitlines()))
@@ -76,5 +92,12 @@ class FlaskLogger(object):
 
 		
 if __name__ == '__main__':
-	log = Logger('./logtest.log')
-	log.log('hello world')
+	try:
+		log = Logger(1)
+
+		log.log('hello world')
+	except Exception as e:
+		print_error(e)
+
+
+

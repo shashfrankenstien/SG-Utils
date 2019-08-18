@@ -61,6 +61,7 @@ def get_cursor():
 class storeBase(object):
 	def __init__(self, filepath, writer=True):
 		self.db_name = filepath
+		self.show_warnings = True
 		self.conn, self.cursor = None, None
 		if writer:
 
@@ -87,7 +88,7 @@ class storeBase(object):
 			conn.close()
 
 	def connect(self):
-		print("the .connect() and .close() methods are deprecated. Use .connection()")
+		if self.show_warnings: print("the .connect() and .close() methods are deprecated. Use .connection()")
 		self.conn = sqlite3.connect(self.db_name)
 		self.conn.row_factory = dict_factory
 		self.cursor = self.conn.cursor()

@@ -31,6 +31,8 @@ def test_connection():
 def test_execute():
 	res = db.execute("select * from storetest where name=?;", ("shashank",))
 	assert (res==[{'name': 'shashank'}])
+	res = db.execute("select * from storetest where name=?;", ("hello",))
+	assert (res==[])
 
 
 def test_class_deco():

@@ -1,4 +1,4 @@
-from flask import request
+# from flask import request
 import time, sys, os
 import traceback
 from itertools import takewhile, repeat
@@ -64,29 +64,29 @@ class Logger(object):
 
 
 
-class FlaskLogger(object):
-	"""
-	docstring for FlaskLogger
+# class FlaskLogger(object):
+# 	"""
+# 	docstring for FlaskLogger
 	
-	Requires 'LOG_FILE' config entry
-	"""
+# 	Requires 'LOG_FILE' config entry
+# 	"""
 
-	def __init__(self, app):
-		try:
-			super(self.__class__, self).__init__(app.config['LOG_FILE'])
-		except:
-			super(self.__class__, self).__init__('./event_log.log')
+# 	def __init__(self, app):
+# 		try:
+# 			super(self.__class__, self).__init__(app.config['LOG_FILE'])
+# 		except:
+# 			super(self.__class__, self).__init__('./event_log.log')
 
 
-	def log(self, message, _print=True):
-		try:
-			ip = str(request.headers['X-Real-Ip'])
-		except: ip = 'ip_not_found'
-		mess = '{} - {} - {}'.format(ip, str(time.ctime(time.time())), str(message))
-		with open(self.file_name, "a") as log_file:
-			log_file.write(mess+'\n')
-		if _print:
-			print(mess)
+# 	def log(self, message, _print=True):
+# 		try:
+# 			ip = str(request.headers['X-Real-Ip'])
+# 		except: ip = 'ip_not_found'
+# 		mess = '{} - {} - {}'.format(ip, str(time.ctime(time.time())), str(message))
+# 		with open(self.file_name, "a") as log_file:
+# 			log_file.write(mess+'\n')
+# 		if _print:
+# 			print(mess)
 
 
 

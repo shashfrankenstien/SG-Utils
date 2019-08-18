@@ -29,8 +29,8 @@ def test_connection():
 	assert (cursor.fetchall()==[{'name': 'shashank'}, {'name': 'pokemon'}])
 
 def test_execute():
-	res = db.execute("select * from storetest;")
-	assert (res==[{'name': 'shashank'}, {'name': 'pokemon'}])
+	res = db.execute("select * from storetest where name=?;", ("shashank",))
+	assert (res==[{'name': 'shashank'}])
 
 
 def test_class_deco():

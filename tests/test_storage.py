@@ -1,7 +1,6 @@
-import os, sys
-sys.path.insert(0, os.getcwd())
 from sg_utils import storeBase, db_connect, db_connection, get_cursor
-
+import sg_utils
+print("FILE", sg_utils.__file__)
 
 class store(storeBase):
 	def create(self):
